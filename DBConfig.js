@@ -38,9 +38,10 @@ db.sequelize = sequelize
 
 // objets to tables
 db.user = require('./src/models/client.model')(sequelize, handSequelize)
-db.user = require('./src/models/room.model')(sequelize, handSequelize)
-db.user = require('./src/models/reserve.model')(sequelize, handSequelize)
-db.user = require('./src/models/payment.model')(sequelize, handSequelize)
-db.user = require('./src/models/factura.model')(sequelize, handSequelize)
+db.room = require('./src/models/room.model')(sequelize, handSequelize)
+db.reserve = require('./src/models/reserve.model')(sequelize, handSequelize)
+db.payment = require('./src/models/payment.model')(sequelize, handSequelize)
+db.factura = require('./src/models/factura.model')(sequelize, handSequelize)
 // realtionship
+
 module.exports = db;
