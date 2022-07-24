@@ -22,7 +22,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER
         },
         email: {
-            type: Sequealize.STRING,
+            type: Sequelize.STRING,
             unique: {
                 args: true,
                 msg: 'Email already exists'

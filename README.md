@@ -7,6 +7,10 @@ Web App for SED band rock
  - `node express framework`
 ## 📋 Pre-requisitos
  - `node v16.16.0` o superior
+ - `postgres`
+ ```
+   create hotel databases
+ ```
 ## 🔭 Copy repository and installation
 _Copia del repositorio **GITLAB** del proyecto en funcionamiento en tu máquina local._
  - `Clone the repo`

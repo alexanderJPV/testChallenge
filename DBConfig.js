@@ -3,7 +3,7 @@ const handSequelize = require('sequelize')
 
 // values postgres databases in set env variable
 const env = {
-    database: 'movie',
+    database: 'hotel',
     username: 'postgres',
     password: 123,
     host: 'localhost',
@@ -24,12 +24,23 @@ const sequelize = new handSequelize(env.database, env.username, env.password, {
     }
 });
 
-
+// authentication postgres DB
 sequelize.authenticate().then(() => {
-    console.log("Success conect Data Bases postgres!!!!");
+    console.log("Success conect Data Bases postgres!!!!")
   }).catch((err) => {
-    console.log(err);
+    console.log(err)
 });
 
+// MODEL to BD
 const db = {}
+db.handSequelize = handSequelize
+db.sequelize = sequelize
+
+// objets to tables
+db.user = require('./src/models/client.model')(sequelize, handSequelize)
+db.user = require('./src/models/room.model')(sequelize, handSequelize)
+db.user = require('./src/models/reserve.model')(sequelize, handSequelize)
+db.user = require('./src/models/payment.model')(sequelize, handSequelize)
+db.user = require('./src/models/factura.model')(sequelize, handSequelize)
+// realtionship
 module.exports = db;
