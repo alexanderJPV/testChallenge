@@ -11,5 +11,8 @@ app.use(require('./src/routes/client.router'))
 app.listen(app.get('port'), () => {
     console.log("********************************")
     console.log(`Server Backen work on port ${app.get('port')}`)
+    db.sequelize.sync().then(() => {
+        console.log("drop and resync with { force: true }");
+    });
     console.log("********************************")
 })
