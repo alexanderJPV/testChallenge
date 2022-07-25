@@ -1,14 +1,17 @@
 'use strict'
 const db = require('../../DBConfig')
 const control = require('../helpers/pagination');
+const Sequelize = require('sequelize');
 const Reserve = db.reserve
 const Client = db.client
 const Room = db.room
 const reserveCtrl = {}
 
+const clientAttributes = [ 'id' ];
+
 reserveCtrl.findAll = async (req,res) => {
     try {
-        const response = await Reserve.findAndCountAll(control.pagination(req,'',null,null,null))
+        const response = await Reserve.findAndCountAll(control.pagination(req,'', Client, clientAttributes , null))
         res.status(200).json(control.JSONResponse(req, response))
     } catch (error) {
         res.status(500).json(
@@ -108,4 +111,35 @@ reserveCtrl.delete = async (req, res) => {
         res.status(300).json({ msg: 'error delete reserve', details: error })
     }
 }
+
+reserveCtrl.search = async (req, res) => {
+    const page = req.query.page ? parseInt(req.query.page) : 0;
+    const keyword = req.query.keyword ? req.query.keyword.toUpperCase() : '';
+    const pageSize = req.query.pageSize ? parseInt(req.query.pageSize) : 10;
+    const offset = page * pageSize;
+    const limit = offset + pageSize;
+    const value = req.query.sort ? req.query.sort : 'id';
+    const type = req.query.type ? req.query.type.toUpperCase() : 'ASC';
+    let queryOne = `UPPER(reserve.status) like '%${keyword}%'`;
+    let searchByRoleOrKeyword = Sequelize.literal(`${queryOne}`);
+    try {
+        const category = await Reserve.findAndCountAll({ offset: parseInt(offset), limit: parseInt(pageSize), order: [[value, type]], where: { searchByRoleOrKeyword }, distinct: true, include: [{ all: true }] }); 
+        const convert = category.count / 10;
+        const pages = convert > Math.round(convert) ? Math.round(convert) + 1 : Math.round(convert);
+        const elements = category.count;
+        const rows = category.rows;
+        res.status(200).json(
+            {
+                elements,
+                page,
+                pageSize,
+                pages,
+                rows
+            }
+        );
+    } catch (error) {
+        res.status(500).json({ msg: "error", details: error });
+    }
+}
+
 module.exports = reserveCtrl

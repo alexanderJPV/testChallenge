@@ -1,6 +1,7 @@
 'use strict'
 const db = require('../../DBConfig')
 const control = require('../helpers/pagination');
+const Sequelize = require('sequelize');
 const Room = db.room
 const roomCtrl = {}
 
@@ -61,4 +62,35 @@ roomCtrl.delete = async (req, res) => {
         res.status(300).json({ msg: 'error delete room', details: error });
     }
 }
+
+roomCtrl.search = async (req, res) => {
+    const page = req.query.page ? parseInt(req.query.page) : 0;
+    const keyword = req.query.keyword ? req.query.keyword.toUpperCase() : '';
+    const pageSize = req.query.pageSize ? parseInt(req.query.pageSize) : 10;
+    const offset = page * pageSize;
+    const limit = offset + pageSize;
+    const value = req.query.sort ? req.query.sort : 'id';
+    const type = req.query.type ? req.query.type.toUpperCase() : 'ASC';
+    let queryOne = `UPPER(codigo) like '%${keyword}%' or cast(nroBeds as CHAR) like '%${req.query.keyword}%' or cast(price as CHAR) like '%${req.query.keyword}%' or UPPER(status) like '%${keyword}%'`;
+    let searchByRoleOrKeyword = Sequelize.literal(`${queryOne}`);
+    try {
+        const category = await Room.findAndCountAll({ offset: parseInt(offset), limit: parseInt(pageSize), order: [[value, type]], where: { searchByRoleOrKeyword } }); 
+        const convert = category.count / 10;
+        const pages = convert > Math.round(convert) ? Math.round(convert) + 1 : Math.round(convert);
+        const elements = category.count;
+        const rows = category.rows;
+        res.status(200).json(
+            {
+                elements,
+                page,
+                pageSize,
+                pages,
+                rows
+            }
+        );
+    } catch (error) {
+        res.status(500).json({ msg: "error", details: err });
+    }
+}
+
 module.exports = roomCtrl

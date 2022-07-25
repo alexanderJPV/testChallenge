@@ -12,5 +12,6 @@ router.post(rootPath + '/rooms', roomtCtrl.create)
 router.put(rootPath + '/rooms', roomtCtrl.update)
 router.get(rootPath + '/rooms/:id', roomtCtrl.findById)
 router.delete(rootPath + '/rooms/:id', roomtCtrl.delete)
+router.get(rootPath + '/rooms-search', roomtCtrl.search)
 
 module.exports = router

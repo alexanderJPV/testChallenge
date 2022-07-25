@@ -26,16 +26,14 @@ control.pagination = (req, values, model, attributes, query) => {
     }
   } else {
     // const include = [{ model: model, attributes: attributes, through: { attributes: [] } }];
-    const include = query === null
-      ? [{ model: model, attributes: attributes, through: { attributes: [] } }] :
-      [query, { model: model, attributes: attributes, through: { attributes: [] } }];
+    const include = query === null ? [{ model: model, attributes: attributes, through: { attributes: [] } }] : [query, { model: model, attributes: attributes, through: { attributes: [] } }];
     return {
       attributes: { exclude: values },
       offset,
       limit,
       order,
       distinct: true,
-      include
+      include: [{ all: true }]
     }
   }
 }

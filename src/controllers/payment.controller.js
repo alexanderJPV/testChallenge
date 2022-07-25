@@ -2,11 +2,14 @@
 const db = require('../../DBConfig')
 const control = require('../helpers/pagination');
 const Payment = db.payment
+const factura = db.factura
 const paymentCtrl = {}
+
+const facturaAttributes = [ 'id' ];
 
 paymentCtrl.findAll = async (req,res) => {
     try {
-        const response = await Payment.findAndCountAll(control.pagination(req,'',null,null,null))
+        const response = await Payment.findAndCountAll(control.pagination(req,'', factura, facturaAttributes ,null))
         res.status(200).json(control.JSONResponse(req, response))
     } catch (error) {
         res.status(500).json(

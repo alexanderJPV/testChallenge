@@ -13,5 +13,6 @@ router.post(rootPath + '/clients', clientCtrl.create)
 router.put(rootPath + '/clients', clientCtrl.update)
 router.get(rootPath + '/clients/:id', clientCtrl.findById)
 router.delete(rootPath + '/clients/:id', clientCtrl.delete)
+router.get(rootPath + '/clients-search', clientCtrl.search)
 
 module.exports = router
