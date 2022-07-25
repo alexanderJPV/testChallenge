@@ -17,13 +17,18 @@ roomCtrl.findAll = async (req,res) => {
     }
 }
 roomCtrl.create = async (req, res) => {
-    const datas = Object.assign({}, req.body);
+    const datas = Object.assign({}, req.body)
     console.log(datas)
     try {
-        const response = await Room.create(datas);
-        res.status(200).json(response);
+        const response = await Room.create(datas)
+        res.status(200).json(response)
     } catch (error) {
-        res.status(500).json({ msg: 'error create room', details: error });
+        res.status(500).json(
+            {
+                msg: 'error create room',
+                details: error
+            }
+        )
     }
 }
 roomCtrl.update = async (req, res) => {
