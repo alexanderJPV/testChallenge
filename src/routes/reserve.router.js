@@ -11,6 +11,8 @@ router.get(rootPath + '/reserves', reserveCtrl.findAll)
 router.post(rootPath + '/reserves', reserveCtrl.create)
 router.put(rootPath + '/reserves', reserveCtrl.update)
 router.get(rootPath + '/reserves/:id', reserveCtrl.findById)
+router.get(rootPath + '/reserves-clients/:id', reserveCtrl.findAllByClientId)
+router.get(rootPath + '/reserves-rooms/:id', reserveCtrl.findAllByRoomId)
 router.delete(rootPath + '/reserves/:id', reserveCtrl.delete)
 
 module.exports = router

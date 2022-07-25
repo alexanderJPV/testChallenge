@@ -17,6 +17,36 @@ reserveCtrl.findAll = async (req,res) => {
         )
     }
 }
+reserveCtrl.findAllByClientId = async (req,res) => {
+    const clientId = req.params.id;
+    try {
+        const query = { where: { clientId: clientId } }
+        const response = await Reserve.findAndCountAll(control.pagination(req, null, null, null, query))
+        res.status(200).json(control.JSONResponse(req, response))
+    } catch (error) {
+        res.status(500).json(
+            {
+                msg: "error",
+                details: error
+            }
+        )
+    }
+}
+reserveCtrl.findAllByRoomId = async (req,res) => {
+    const roomId = req.params.id;
+    try {
+        const query = { where: { roomId: roomId } }
+        const response = await Reserve.findAndCountAll(control.pagination(req, null, null, null, query))
+        res.status(200).json(control.JSONResponse(req, response))
+    } catch (error) {
+        res.status(500).json(
+            {
+                msg: "error",
+                details: error
+            }
+        )
+    }
+}
 reserveCtrl.create = async (req, res) => {
     const datas = Object.assign({}, req.body)
     try {
