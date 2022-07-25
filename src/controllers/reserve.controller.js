@@ -1,12 +1,13 @@
 'use strict'
 const db = require('../../DBConfig')
+const control = require('../helpers/pagination');
 const Reserve = db.reserve
 const reserveCtrl = {}
 
 reserveCtrl.findAll = async (req,res) => {
     try {
-        const response = await Reserve.findAll()
-        res.status(200).json(response)
+        const response = await Reserve.findAndCountAll(control.pagination(req,'',null,null,null))
+        res.status(200).json(control.JSONResponse(req, response))
     } catch (error) {
         res.status(500).json(
             {
@@ -18,10 +19,17 @@ reserveCtrl.findAll = async (req,res) => {
 }
 reserveCtrl.create = async (req, res) => {
     const datas = Object.assign({}, req.body)
-    console.log(datas)
     try {
-        const response = await Reserve.create(datas)
-        res.status(200).json(response)
+        if(datas.clientId != null  && datas.roomId != null){
+            const response = await Reserve.create(datas)
+            res.status(200).json(response)
+        }else{
+            res.status(500).json(
+                {
+                    msg: 'There are not cleinteId or roomId'
+                }
+            )
+        }
     } catch (error) {
         res.status(500).json(
             {
@@ -34,8 +42,16 @@ reserveCtrl.create = async (req, res) => {
 reserveCtrl.update = async (req, res) => {
     const datas = await Object.assign({}, req.body)
     try {
-        const response = await Reserve.update(datas, { where: { id: datas.id }, returning: true, plain: true })
-    	  res.status(200).json(response)
+        if(datas.clientId != null  && datas.roomId != null){
+            const response = await Reserve.update(datas, { where: { id: datas.id }, returning: true, plain: true })
+            res.status(200).json(response)
+        }else{
+            res.status(500).json(
+                {
+                    msg: 'There are not cleinteId or roomId'
+                }
+            )
+        }
     } catch (error) {
         res.status(500).json({ msg: 'error update reserve', details: error })
     }

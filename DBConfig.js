@@ -1,17 +1,10 @@
 'use strict'
 const handSequelize = require('sequelize')
 
-// values postgres databases in set env variable
-// const env = {
-//     database: 'hotel',
-//     username: 'root',
-//     password: 'root',
-//     host: 'localhost',
-// }
 const dbConfig = {
     HOST: "localhost",
     USER: "root",
-    PASSWORD: "root",
+    PASSWORD: "123",
     DB: "hotel",
     dialect: "mysql",
     pool: {

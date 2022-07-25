@@ -1,5 +1,6 @@
 'use strict'
 const db = require('../../DBConfig')
+const control = require('../helpers/pagination');
 const Client = db.client
 const clientCtrl = {}
 
@@ -8,8 +9,8 @@ const clientCtrl = {}
 // }
 clientCtrl.findAll = async (req,res) => {
     try {
-        const response = await Client.findAll()
-        res.status(200).json(response)
+        const response = await Client.findAndCountAll(control.pagination(req,'',null,null,null))
+        res.status(200).json(control.JSONResponse(req, response))
     } catch (error) {
         res.status(500).json(
             {

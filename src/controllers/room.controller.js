@@ -1,12 +1,13 @@
 'use strict'
 const db = require('../../DBConfig')
+const control = require('../helpers/pagination');
 const Room = db.room
 const roomCtrl = {}
 
 roomCtrl.findAll = async (req,res) => {
     try {
-        const response = await Room.findAll()
-        res.status(200).json(response)
+        const response = await Room.findAndCountAll(control.pagination(req,'',null,null,null))
+        res.status(200).json(control.JSONResponse(req, response))
     } catch (error) {
         res.status(500).json(
             {
