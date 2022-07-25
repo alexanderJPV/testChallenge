@@ -74,7 +74,7 @@ Explains all entyties, flows and activities
    <li>
       <p>End-poinds cliente(client).</p>
       <h4>CRUD: En el analisis y diseño "Cliente" es el actor principal su funcion es el solicitante de una reserva. Los end-points siguientes hacen posible que el backend segun la arquitecura API RESTFULL.<br>
-      Realize: Create-Read-Update-Delete de un regitro Cliente<br>
+      Realiza: Create-Read-Update-Delete de un regitro Cliente<br>
       Paginado: Todo endpoint de tipo GET incluye paginacion.
       </h4>
       <blockquote>
@@ -89,7 +89,7 @@ Explains all entyties, flows and activities
          <p> http://localhost:3000/api/clients/:id</p>
       </blockquote>
       <h4>OTHERS: Adiciones funciones extras a CRUD.<br>
-          Search: Busqueda de un registro cliente con critero de (FirstName, Lastname, ci, email)
+          Search: Busqueda de un registro cliente con critero de keyword=(nombre, apellido, ci, email)
       </h4>
       <blockquote>
          <span>**GET SEARCH**</span>
@@ -98,26 +98,109 @@ Explains all entyties, flows and activities
    </li>
    <li>
       <p>End-poinds Habitacion(room).</p>
+      <h4>CRUD: En el analisis y diseño "Habitacion" es otro actor principal su funcion representar las caracteristicas y estados de una habitacion de hotel. Los end-points siguientes hacen posible que el backend segun la arquitecura API RESTFULL.<br>
+      Realiza: Create-Read-Update-Delete de un regitro Habitacion<br>
+      Paginado: Todo endpoint de tipo GET incluye paginacion.
+      </h4>
       <blockquote>
-         <p> A block quote. </p>
+         <span>**GET**</span><p> http://localhost:3000/api/rooms</p>
+         <span>**POST**</span>
+         <p> http://localhost:3000/api/rooms</p>
+         <span>**PUT**</span>
+         <p> http://localhost:3000/api/rooms</p>
+         <span>**GET ONE**</span>
+         <p> http://localhost:3000/api/rooms/:id</p>
+         <span>**DELETE**</span>
+         <p> http://localhost:3000/api/rooms/:id</p>
+      </blockquote>
+      <h4>OTHERS: Adiciones funciones extras a CRUD.<br>
+          Search: Busqueda de un registro habitacion con critero de keyword = (codigo,nroCamas,precio, estado)
+      </h4>
+      <blockquote>
+         <span>**GET SEARCH**</span>
+         <p> http://localhost:3000/api/rooms-search/?keyword=something</p>
       </blockquote>
    </li>
    <li>
       <p>End-poinds Reserve(reserva).</p>
+      <h4>CRUD: En el analisis y diseño "Reserva" es la relacion de una cliente con habitacion. Los end-points siguientes hacen posible que el backend segun la arquitecura API RESTFULL.<br>
+      Realiza: Create-Read-Update-Delete de un regitro Reserva<br>
+      Paginado: Todo endpoint de tipo GET incluye paginacion.
+      </h4>
       <blockquote>
-         <p> A block quote. </p>
+         <span>**GET**</span><p> http://localhost:3000/api/reserves</p>
+         <span>**POST**</span>
+         <p> http://localhost:3000/api/reserves</p>
+         <span>**PUT**</span>
+         <p> http://localhost:3000/api/reserves</p>
+         <span>**GET ONE**</span>
+         <p> http://localhost:3000/api/reserves/:id</p>
+         <span>**DELETE**</span>
+         <p> http://localhost:3000/api/reserves/:id</p>
+      </blockquote>
+      <h4>OTHERS: Adiciones funciones extras a CRUD.<br>
+          Search: Busqueda de un registro habitacion con critero
+      </h4>
+      <blockquote>
+         <span>**GET SEARCH**</span>
+         <p> http://localhost:3000/api/reserves-search/?keyword=something</p>
+      </blockquote>
+       <h4>OTHERS: Adiciones funciones extras a CRUD.<br>
+          FindAllBYIdClients: Muetras todo los servicios relacionados a un cliente con id='X'.
+      </h4>
+      <blockquote>
+      <span>**GET**</span>
+         <p> http://localhost:3000/api/reserves-clients/:id</p>
+      </blockquote>
+      <h4>OTHERS: Adiciones funciones extras a CRUD.<br>
+          FindAllBYIdRooms: Muetras todo los servicios relacionados a una habitacion con id='X'.
+      </h4>
+      <blockquote>
+      <span>**GET**</span>
+         <p> http://localhost:3000/api/reserves-rooms/:id</p>
       </blockquote>
    </li>
    <li>
       <p>End-poinds Payment(pago).</p>
+      <h4>CRUD: En el analisis y diseño "Pago" tiene la funcion de registrar el monto y tipo de pago y mentiene una relacion direca con reserva. Los end-points siguientes hacen posible que el backend segun la arquitecura API RESTFULL.<br>
+      Realiza: Create-Read-Update-Delete de un regitro Pago.<br>
+      Paginado: Todo endpoint de tipo GET incluye paginacion.
+      </h4>
       <blockquote>
-         <p> A block quote. </p>
+         <span>**GET**</span><p> http://localhost:3000/api/payments</p>
+         <span>**POST**</span>
+         <p> http://localhost:3000/api/payments</p>
+         <span>**PUT**</span>
+         <p> http://localhost:3000/api/payments</p>
+         <span>**GET ONE**</span>
+         <p> http://localhost:3000/api/payments/:id</p>
+         <span>**DELETE**</span>
+         <p> http://localhost:3000/api/payments/:id</p>
+      </blockquote>
+      <h4>OTHERS: Adiciones funciones extras a CRUD.<br>
+          Facturar: Recibe el id=X de una factura y hace una consulta para reunir los datos necesarios para un comprobante de factura.
+      </h4>
+      <blockquote>
+         <span>**GET IMPRIMIR-FACTURA**</span>
+         <p> http://localhost:3000/api/payments-factura/:id</p>
       </blockquote>
    </li>
    <li>
       <p>End-poinds Factura.</p>
+      <h4>CRUD: En el analisis y diseño "Pago" tiene la funcion de registrar el numero de factura nit y datelles para le emicion de un comprobante. Los end-points siguientes hacen posible que el backend segun la arquitecura API RESTFULL.<br>
+      Realiza: Create-Read-Update-Delete de un regitro Factura.<br>
+      Paginado: Todo endpoint de tipo GET incluye paginacion.
+      </h4>
       <blockquote>
-         <p> A block quote. </p>
+         <span>**GET**</span><p> http://localhost:3000/api/facturas</p>
+         <span>**POST**</span>
+         <p> http://localhost:3000/api/facturas</p>
+         <span>**PUT**</span>
+         <p> http://localhost:3000/api/facturas</p>
+         <span>**GET ONE**</span>
+         <p> http://localhost:3000/api/facturas/:id</p>
+         <span>**DELETE**</span>
+         <p> http://localhost:3000/api/facturas/:id</p>
       </blockquote>
    </li>
 </ol>
