@@ -3,7 +3,7 @@
 module.exports = (sequelize, Sequelize) => {
     const factura = sequelize.define('factura', {
         nit: {
-            type: Sequelize.INTEGER
+            type: Sequelize.STRING
         },
         razonSocial: {
             type: Sequelize.STRING(255)

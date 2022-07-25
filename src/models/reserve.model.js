@@ -5,10 +5,10 @@ module.exports = (sequelize, Sequelize) => {
         status: {
             type: Sequelize.ENUM('PENDIENTE', 'PAGADO', 'ELIMINADO')
         },
-        dateIni: {
+        startDate: {
             type: Sequelize.DATEONLY()
         },
-        dateEnd: {
+        endDate: {
             type: Sequelize.DATEONLY()
         },
     });

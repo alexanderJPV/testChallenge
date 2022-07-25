@@ -2,27 +2,61 @@
 const handSequelize = require('sequelize')
 
 // values postgres databases in set env variable
-const env = {
-    database: 'hotel',
-    username: 'postgres',
-    password: 123,
-    host: 'localhost',
-}
-
-const sequelize = new handSequelize(env.database, env.username, env.password, {
-    host: 'localhost',
-    dialect: 'postgres',
-    port: 5432,
-    // dialectOptions: {
-    //     connectTimeout: 60000
-    // },
+// const env = {
+//     database: 'hotel',
+//     username: 'root',
+//     password: 'root',
+//     host: 'localhost',
+// }
+const dbConfig = {
+    HOST: "localhost",
+    USER: "root",
+    PASSWORD: "root",
+    DB: "hotel",
+    dialect: "mysql",
     pool: {
-        max: 5,
-        min: 0,
-        acquire: 30000,
-        idle: 10000
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000
+    }
+};
+
+const sequelize = new handSequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
+    host: dbConfig.HOST,
+    dialect: dbConfig.dialect,
+    operatorsAliases: false,
+    pool: {
+      max: dbConfig.pool.max,
+      min: dbConfig.pool.min,
+      acquire: dbConfig.pool.acquire,
+      idle: dbConfig.pool.idle
     }
 });
+
+// const sequelize = new handSequelize(env.database, env.username, env.password, {
+//     host: dbConfig.HOST,
+//     dialect: "mysql",
+//     operatorsAliases: false,
+//     pool: {
+//       max: dbConfig.pool.max,
+//       min: dbConfig.pool.min,
+//       acquire: dbConfig.pool.acquire,
+//       idle: dbConfig.pool.idle
+//     }
+//     // host: 'localhost',
+//     // dialect: 'mysql',
+//     // port: 366,
+//     // // dialectOptions: {
+//     // //     connectTimeout: 60000
+//     // // },
+//     // pool: {
+//     //     max: 5,
+//     //     min: 0,
+//     //     acquire: 30000,
+//     //     idle: 10000
+//     // }
+// });
 
 // authentication postgres DB
 sequelize.authenticate().then(() => {

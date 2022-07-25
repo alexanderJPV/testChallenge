@@ -17,3 +17,6 @@ module.exports = (sequelize, Sequelize) => {
     });
     return room;
 }
+// ,{
+//     initialAutoIncrement: 1000,
+// }
