@@ -64,4 +64,15 @@ paymentCtrl.delete = async (req, res) => {
         res.status(300).json({ msg: 'error delete payment', details: error });
     }
 }
+
+paymentCtrl.factura = async (req, res) => { // retorna todos los pagos con su respectiva factura a la cual pertenece el cliente y el cuarto
+    const id = req.params.id;
+    try {
+        const response = await Payment.findAndCountAll({ where: { facturaId: id }, include: [{ all: true, right: true, nested: true }]});
+        res.status(200).json(response);
+    } catch (error) {
+        res.status(300).json({ msg: 'error to find payment', details: error });
+    }
+}
+
 module.exports = paymentCtrl

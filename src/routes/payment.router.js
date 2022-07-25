@@ -13,5 +13,6 @@ router.post(rootPath + '/payments', paymentCtrl.create)
 router.put(rootPath + '/payments', paymentCtrl.update)
 router.get(rootPath + '/payments/:id', paymentCtrl.findById)
 router.delete(rootPath + '/payments/:id', paymentCtrl.delete)
+router.get(rootPath + '/payments-factura/:id', paymentCtrl.factura) // enviar id de fatura
 
 module.exports = router
