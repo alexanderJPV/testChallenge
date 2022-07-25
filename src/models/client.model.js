@@ -2,10 +2,10 @@
 
 module.exports = (sequelize, Sequelize) => {
     const client = sequelize.define('client', {
-        name: {
+        firstName: {
             type: Sequelize.STRING(255)
         },
-        lasName: {
+        lastName: {
             type: Sequelize.STRING(255)
         },
         age: {
