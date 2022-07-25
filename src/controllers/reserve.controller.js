@@ -2,6 +2,8 @@
 const db = require('../../DBConfig')
 const control = require('../helpers/pagination');
 const Reserve = db.reserve
+const Client = db.client
+const Room = db.room
 const reserveCtrl = {}
 
 reserveCtrl.findAll = async (req,res) => {
@@ -20,7 +22,7 @@ reserveCtrl.findAll = async (req,res) => {
 reserveCtrl.findAllByClientId = async (req,res) => {
     const clientId = req.params.id;
     try {
-        const query = { where: { clientId: clientId } }
+        const query = { where: { clientId: clientId }, include: [{ model: Client }]}
         const response = await Reserve.findAndCountAll(control.pagination(req, null, null, null, query))
         res.status(200).json(control.JSONResponse(req, response))
     } catch (error) {
@@ -35,7 +37,7 @@ reserveCtrl.findAllByClientId = async (req,res) => {
 reserveCtrl.findAllByRoomId = async (req,res) => {
     const roomId = req.params.id;
     try {
-        const query = { where: { roomId: roomId } }
+        const query = { where: { roomId: roomId }, include: [{ model: Room }]}
         const response = await Reserve.findAndCountAll(control.pagination(req, null, null, null, query))
         res.status(200).json(control.JSONResponse(req, response))
     } catch (error) {
